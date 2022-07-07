@@ -1,37 +1,28 @@
-version: "3"
-
-# 声明一个名为network的networks,subnet为network的子网地址,默认网关是177.7.0.1
-networks:
-  network:
-    ipam:
-      driver: default
-      config:
-        - subnet: '177.7.0.0/16'
-        
+version: "3"    
 services:
-  web:
+  goadmin-web:
     build:
       context: ./web
       dockerfile: ./Dockerfile
-    container_name: gva-web
+    container_name: goadmin-web
     restart: always
     ports:
       - '8080:8080'
     depends_on:
-      - server
+      -  goadmin-server
     command: [ 'nginx-debug', '-g', 'daemon off;' ]
     networks:
       network:
         ipv4_address: 177.7.0.11
 
-  server:
+  goadmin-server:
     build:
       context: ./server
       dockerfile: ./Dockerfile
-    container_name: gva-server
+    container_name: goadmin-server
     restart: always
     ports:
-      - '8889:8888'
+      - '8989:8989'
     depends_on:
       - chromedp-headless-shell
     networks:
@@ -40,7 +31,7 @@ services:
   
   chromedp-headless-shell:
     build:
-        context: ./chromedp-headless-shell
+        context: ./tools/chromedp-headless-shell
         dockerfile: ./Dockerfile
     container_name: chromedp-headless-shell
     restart: always
@@ -49,3 +40,10 @@ services:
     networks:
       network:
         ipv4_address: 177.7.0.13
+# 声明一个名为network的networks,subnet为network的子网地址,默认网关是177.7.0.1
+networks:
+  network:
+    ipam:
+      driver: default
+      config:
+        - subnet: '177.7.0.0/16'

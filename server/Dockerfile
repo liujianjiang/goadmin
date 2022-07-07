@@ -12,7 +12,7 @@ RUN go env -w GO111MODULE=on \
 
 FROM alpine:latest
 
-LABEL MAINTAINER="SliverHorn@sliver_horn@qq.com"
+LABEL MAINTAINER="875394153@qq.com"
 
 WORKDIR /go/src/github.com/liujianjiang/goadmin/server
 
@@ -20,5 +20,5 @@ COPY --from=0 /go/src/github.com/liujianjiang/goadmin/server/server ./
 COPY --from=0 /go/src/github.com/liujianjiang/goadmin/server/resource ./resource/
 COPY --from=0 /go/src/github.com/liujianjiang/goadmin/server/config.docker.yaml ./
 
-EXPOSE 8888
+EXPOSE 8989
 ENTRYPOINT ./server -c config.docker.yaml

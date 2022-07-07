@@ -3,7 +3,8 @@ FROM node:16
 WORKDIR /gva_web/
 COPY . .
 
-RUN yarn && yarn build
+
+RUN npm install -g increase-memory-limit && increase-memory-limit && yarn && yarn build
 
 FROM nginx:alpine
 LABEL MAINTAINER="SliverHorn@sliver_horn@qq.com"
