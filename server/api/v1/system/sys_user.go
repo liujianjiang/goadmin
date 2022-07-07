@@ -398,7 +398,7 @@ func (b *BaseApi) SendEmail(c *gin.Context) {
 	codes := strings.Split(codestr, ",")
 	content := ""
 	// create allocator context for use with creating a browser context later
-	allocatorContext, cancel := chromedp.NewRemoteAllocator(context.Background(), "ws://177.7.0.13:9222")
+	allocatorContext, cancel := chromedp.NewRemoteAllocator(context.Background(), "ws://chromedp-headless-shell:9222")
 	defer cancel()
 
 	// create context
