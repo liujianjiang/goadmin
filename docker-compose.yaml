@@ -31,7 +31,7 @@ services:
     container_name: gva-server
     restart: always
     ports:
-      - '8888:8888'
+      - '8889:8888'
     depends_on:
       - chromedp-headless-shell
     networks:
