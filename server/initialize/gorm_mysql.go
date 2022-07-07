@@ -1,9 +1,9 @@
 package initialize
 
 import (
-	"github.com/flipped-aurora/gin-vue-admin/server/config"
-	"github.com/flipped-aurora/gin-vue-admin/server/global"
-	"github.com/flipped-aurora/gin-vue-admin/server/initialize/internal"
+	"github.com/liujianjiang/goadmin/server/config"
+	"github.com/liujianjiang/goadmin/server/global"
+	"github.com/liujianjiang/goadmin/server/initialize/internal"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )

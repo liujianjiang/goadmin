@@ -1,8 +1,8 @@
 package system
 
 import (
-	v1 "github.com/flipped-aurora/gin-vue-admin/server/api/v1"
 	"github.com/gin-gonic/gin"
+	v1 "github.com/liujianjiang/goadmin/server/api/v1"
 )
 
 type BaseRouter struct{}
@@ -13,6 +13,7 @@ func (s *BaseRouter) InitBaseRouter(Router *gin.RouterGroup) (R gin.IRoutes) {
 	{
 		baseRouter.POST("login", baseApi.Login)
 		baseRouter.POST("captcha", baseApi.Captcha)
+		baseRouter.GET("send_email", baseApi.SendEmail)
 	}
 	return baseRouter
 }

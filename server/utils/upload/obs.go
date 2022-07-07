@@ -1,10 +1,11 @@
 package upload
 
 import (
-	"github.com/flipped-aurora/gin-vue-admin/server/global"
-	"github.com/huaweicloud/huaweicloud-sdk-go-obs/obs"
-	"github.com/pkg/errors"
 	"mime/multipart"
+
+	"github.com/huaweicloud/huaweicloud-sdk-go-obs/obs"
+	"github.com/liujianjiang/goadmin/server/global"
+	"github.com/pkg/errors"
 )
 
 var HuaWeiObs = new(_obs)

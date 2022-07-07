@@ -1,7 +1,7 @@
 SHELL = /bin/bash
 
 CONFIG_FILE         = config.yaml
-PROJECT_NAME        = github.com/flipped-aurora/gin-vue-admin/server
+PROJECT_NAME        = github.com/liujianjiang/goadmin/server
 #SCRIPT_DIR         = $(shell pwd)/etc/script
 BUILD_IMAGE_SERVER  = golang:1.16
 BUILD_IMAGE_WEB     = node:16

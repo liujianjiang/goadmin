@@ -3,16 +3,17 @@ package system
 import (
 	"errors"
 	"fmt"
-	"golang.org/x/text/cases"
-	"golang.org/x/text/language"
 	"net/url"
 	"os"
 	"strings"
 
-	"github.com/flipped-aurora/gin-vue-admin/server/global"
-	"github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
-	"github.com/flipped-aurora/gin-vue-admin/server/model/system"
-	"github.com/flipped-aurora/gin-vue-admin/server/utils"
+	"golang.org/x/text/cases"
+	"golang.org/x/text/language"
+
+	"github.com/liujianjiang/goadmin/server/global"
+	"github.com/liujianjiang/goadmin/server/model/common/response"
+	"github.com/liujianjiang/goadmin/server/model/system"
+	"github.com/liujianjiang/goadmin/server/utils"
 
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"

@@ -1,12 +1,12 @@
 package {{.Package}}
 
 import (
-	"github.com/flipped-aurora/gin-vue-admin/server/global"
-    "github.com/flipped-aurora/gin-vue-admin/server/model/{{.Package}}"
-    "github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
-    {{.Package}}Req "github.com/flipped-aurora/gin-vue-admin/server/model/{{.Package}}/request"
-    "github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
-    "github.com/flipped-aurora/gin-vue-admin/server/service"
+	"github.com/liujianjiang/goadmin/server/global"
+    "github.com/liujianjiang/goadmin/server/model/{{.Package}}"
+    "github.com/liujianjiang/goadmin/server/model/common/request"
+    {{.Package}}Req "github.com/liujianjiang/goadmin/server/model/{{.Package}}/request"
+    "github.com/liujianjiang/goadmin/server/model/common/response"
+    "github.com/liujianjiang/goadmin/server/service"
     "github.com/gin-gonic/gin"
     "go.uber.org/zap"
 )

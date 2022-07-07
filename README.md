@@ -16,10 +16,10 @@
 
 我们会对以下四个版本持续维护，请选择适合自己的版本使用。最新技术栈为组合式api版本，已支持多语言（I18N）
 
-[组合式API版（主）](https://github.com/flipped-aurora/gin-vue-admin) | 
-[组合式API多语言(i18n)版](https://github.com/flipped-aurora/gin-vue-admin/tree/i18n-dev-new) | 
-[声明式API版](https://github.com/flipped-aurora/gin-vue-admin/tree/v2.4.x) | 
-[声明式API多语言(i18n)版](https://github.com/flipped-aurora/gin-vue-admin/tree/i18n-dev)
+[组合式API版（主）](https://github.com/liujianjiang/goadmin) | 
+[组合式API多语言(i18n)版](https://github.com/liujianjiang/goadmin/tree/i18n-dev-new) | 
+[声明式API版](https://github.com/liujianjiang/goadmin/tree/v2.4.x) | 
+[声明式API多语言(i18n)版](https://github.com/liujianjiang/goadmin/tree/i18n-dev)
 
 # 项目文档
 [在线文档](https://www.gin-vue-admin.com) : https://www.gin-vue-admin.com
@@ -100,7 +100,7 @@ Gin-vue-admin 的成长离不开大家的支持，如果你愿意为 gin-vue-adm
 ```bash
 
 # 克隆项目
-git clone https://github.com/flipped-aurora/gin-vue-admin.git
+git clone https://github.com/liujianjiang/goadmin.git
 # 进入server文件夹
 cd server
 
@@ -317,8 +317,8 @@ swag init
 - 配置管理：配置文件可前台修改(在线体验站点不开放此功能)。
 - 条件搜索：增加条件搜索示例。
 - restful示例：可以参考用户管理模块中的示例API。
-	- 前端文件参考: [web/src/view/superAdmin/api/api.vue](https://github.com/flipped-aurora/gin-vue-admin/blob/master/web/src/view/superAdmin/api/api.vue)
-    - 后台文件参考: [server/router/sys_api.go](https://github.com/flipped-aurora/gin-vue-admin/blob/master/server/router/sys_api.go)
+	- 前端文件参考: [web/src/view/superAdmin/api/api.vue](https://github.com/liujianjiang/goadmin/blob/master/web/src/view/superAdmin/api/api.vue)
+    - 后台文件参考: [server/router/sys_api.go](https://github.com/liujianjiang/goadmin/blob/master/server/router/sys_api.go)
 - 多点登录限制：需要在`config.yaml`中把`system`中的`use-multipoint`修改为true(需要自行配置Redis和Config中的Redis参数，测试阶段，有bug请及时反馈)。
 - 分片长传：提供文件分片上传和大文件分片上传功能示例。
 - 表单生成器：表单生成器借助 [@form-generator](https://github.com/JakHuang/form-generator) 。
@@ -376,8 +376,8 @@ swag init
 
 感谢您对gin-vue-admin的贡献!
 
-<a href="https://github.com/flipped-aurora/gin-vue-admin/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=flipped-aurora/gin-vue-admin" />
+<a href="https://github.com/liujianjiang/goadmin/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=liujianjiang/goadmin" />
 </a>
 
 ## 9. 捐赠

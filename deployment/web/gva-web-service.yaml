@@ -3,8 +3,8 @@ kind: Service
 metadata:
   name: gva-web
   annotations:
-    flipped-aurora/gin-vue-admin: ui
-    github: "https://github.com/flipped-aurora/gin-vue-admin.git"
+    liujianjiang/goadmin: ui
+    github: "https://github.com/liujianjiang/goadmin.git"
     app.kubernetes.io/version: 0.0.1
   labels:
     app: gva-web

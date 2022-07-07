@@ -14,11 +14,11 @@ English | [简体中文](./README.md)
 
 [gitee](https://gitee.com/pixelmax/gin-vue-admin): https://gitee.com/pixelmax/gin-vue-admin
 
-[github](https://github.com/flipped-aurora/gin-vue-admin): https://github.com/flipped-aurora/gin-vue-admin
+[github](https://github.com/liujianjiang/goadmin): https://github.com/liujianjiang/goadmin
 
-[Vue3 version branch address](https://github.com/flipped-aurora/gin-vue-admin/tree/vue3Develop): https://github.com/flipped-aurora/gin-vue-admin/tree/vue3Develop
+[Vue3 version branch address](https://github.com/liujianjiang/goadmin/tree/vue3Develop): https://github.com/liujianjiang/goadmin/tree/vue3Develop
 
-[Approval flow branch](https://github.com/flipped-aurora/gin-vue-admin/tree/gva_workflow): https://github.com/flipped-aurora/gin-vue-admin/tree/gva_workflow
+[Approval flow branch](https://github.com/liujianjiang/goadmin/tree/gva_workflow): https://github.com/liujianjiang/goadmin/tree/gva_workflow
 
 # Project Guidelines
 [Online Documentation](https://www.gin-vue-admin.com/) : https://www.gin-vue-admin.com/
@@ -69,8 +69,8 @@ We are excited that you are interested in contributing to gin-vue-admin. Before 
 
 - master: 2.0 code, for prod
 - develop: 2.0 dev code, for test
-- [gin-vue-admin_v2_dev](https://github.com/flipped-aurora/gin-vue-admin/tree/gin-vue-admin_v2_dev) (v2.0 [GormV1](https://v1.gorm.io) Stable branch)
-- [gva_gormv2_dev](https://github.com/flipped-aurora/gin-vue-admin/tree/gva_gormv2_dev) (v2.0 [GormV2](https://v2.gorm.io) Development branch)
+- [gin-vue-admin_v2_dev](https://github.com/liujianjiang/goadmin/tree/gin-vue-admin_v2_dev) (v2.0 [GormV1](https://v1.gorm.io) Stable branch)
+- [gva_gormv2_dev](https://github.com/liujianjiang/goadmin/tree/gva_gormv2_dev) (v2.0 [GormV2](https://v2.gorm.io) Development branch)
 
 ## 2. Getting started
 
@@ -88,7 +88,7 @@ use `Goland` And other editing tools，open server catalogue，You can't open it
 
 ```bash
 # clone the project
-git clone https://github.com/flipped-aurora/gin-vue-admin.git
+git clone https://github.com/liujianjiang/goadmin.git
 
 # open server catalogue
 cd server
@@ -240,8 +240,8 @@ swag init
 - Configuration management: the configuration file can be modified in the foreground (this feature is not available in the online experience site).
 - Conditional search: Add an example of conditional search.
 - Restful example: You can see sample APIs in user management module.
-  - Front-end file reference: [web/src/view/superAdmin/api/api.vue](https://github.com/flipped-aurora/gin-vue-admin/blob/master/web/src/view/superAdmin/api/api.vue).
-  - Stage reference: [server/router/sys_api.go](https://github.com/flipped-aurora/gin-vue-admin/blob/master/server/router/sys_api.go).
+  - Front-end file reference: [web/src/view/superAdmin/api/api.vue](https://github.com/liujianjiang/goadmin/blob/master/web/src/view/superAdmin/api/api.vue).
+  - Stage reference: [server/router/sys_api.go](https://github.com/liujianjiang/goadmin/blob/master/server/router/sys_api.go).
 - Multi-login restriction: Change `user-multipoint` to true in `system` in `config.yaml` (You need to configure redis and redis parameters yourself. During the test period, please report in time if there is a bug).
 - Upload file by chunk：Provides examples of file upload and large file upload by chunk.
 - Form Builder：With the help of [@form-generator](https://github.com/JakHuang/form-generator).
@@ -303,8 +303,8 @@ swag init
 
 Thank you for considering your contribution to gin-vue-admin!
 
-<a href="https://github.com/flipped-aurora/gin-vue-admin/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=flipped-aurora/gin-vue-admin" />
+<a href="https://github.com/liujianjiang/goadmin/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=liujianjiang/goadmin" />
 </a>
 
 ## 9. Donate

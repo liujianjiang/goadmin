@@ -2,10 +2,11 @@ package internal
 
 import (
 	"fmt"
-	"github.com/flipped-aurora/gin-vue-admin/server/global"
+	"time"
+
+	"github.com/liujianjiang/goadmin/server/global"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
-	"time"
 )
 
 var Zap = new(_zap)

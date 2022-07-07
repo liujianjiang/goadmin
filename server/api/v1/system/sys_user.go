@@ -1,20 +1,30 @@
 package system
 
 import (
+	"context"
+	"fmt"
+	"log"
 	"strconv"
+	"strings"
+	"time"
 
-	"github.com/flipped-aurora/gin-vue-admin/server/global"
-	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
-	"github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
-	"github.com/flipped-aurora/gin-vue-admin/server/model/system"
-	systemReq "github.com/flipped-aurora/gin-vue-admin/server/model/system/request"
-	systemRes "github.com/flipped-aurora/gin-vue-admin/server/model/system/response"
-	"github.com/flipped-aurora/gin-vue-admin/server/utils"
+	"github.com/chromedp/chromedp"
+	uti "github.com/liujianjiang/goadmin/server/plugin/email/utils"
+
+	"github.com/liujianjiang/goadmin/server/global"
+	"github.com/liujianjiang/goadmin/server/model/common/request"
+	"github.com/liujianjiang/goadmin/server/model/common/response"
+	"github.com/liujianjiang/goadmin/server/model/system"
+	systemReq "github.com/liujianjiang/goadmin/server/model/system/request"
+	systemRes "github.com/liujianjiang/goadmin/server/model/system/response"
+	"github.com/liujianjiang/goadmin/server/utils"
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-redis/redis/v8"
 	"go.uber.org/zap"
 )
+
+var chromeCtx context.Context
 
 // @Tags Base
 // @Summary 用户登录
@@ -374,4 +384,45 @@ func (b *BaseApi) ResetPassword(c *gin.Context) {
 	} else {
 		response.OkWithMessage("重置成功", c)
 	}
+}
+
+// @Tags Base
+// @Summary 用户登录
+// @Produce  application/json
+// @Param data body systemReq.Login true "用户名, 密码, 验证码"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"登陆成功"}"
+// @Router /base/login [post]
+func (b *BaseApi) SendEmail(c *gin.Context) {
+
+	codestr := c.Query("codes")
+	codes := strings.Split(codestr, ",")
+	content := ""
+	// create allocator context for use with creating a browser context later
+	allocatorContext, cancel := chromedp.NewRemoteAllocator(context.Background(), "ws://177.7.0.13:9222")
+	defer cancel()
+
+	// create context
+	ctxt, cancel := chromedp.NewContext(allocatorContext)
+	defer cancel()
+
+	for _, code := range codes {
+		code, _ := strconv.Atoi(code)
+		stockinfo, err := userService.GetTTJiJinStockInfo(ctxt, (int(code)))
+		if err != nil {
+			log.Fatal(err)
+		}
+		log.Printf("stockinfo: %v", stockinfo)
+		content += fmt.Sprintf("名称: %s 代码: %d 涨幅: %s <br>", stockinfo.Name, stockinfo.Code, stockinfo.Estimate)
+	}
+
+	emailtitle := fmt.Sprintf("天天基金-%s", time.Now().Format("2006/1/02 15:04"))
+
+	//发送邮件
+	if err := uti.Email("875394153@qq.com", emailtitle, content); err != nil {
+		global.GVA_LOG.Error("发送失败!", zap.Error(err))
+		response.FailWithMessage("发送失败", c)
+		return
+	}
+
+	response.Ok(c)
 }

@@ -3,8 +3,8 @@ kind: Deployment
 metadata:
   name: gva-server
   annotations:
-    flipped-aurora/gin-vue-admin: backend
-    github: "https://github.com/flipped-aurora/gin-vue-admin.git"
+    liujianjiang/goadmin: backend
+    github: "https://github.com/liujianjiang/goadmin.git"
     app.kubernetes.io/version: 0.0.1
   labels:
     app: gva-server
@@ -29,7 +29,7 @@ spec:
             - containerPort: 8888
               name: http
           volumeMounts:
-            - mountPath: /go/src/github.com/flipped-aurora/gin-vue-admin/server/config.yaml
+            - mountPath: /go/src/github.com/liujianjiang/goadmin/server/config.yaml
               name: config
               subPath: config.yaml
             - mountPath: /etc/localtime

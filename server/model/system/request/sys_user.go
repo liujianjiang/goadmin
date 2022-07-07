@@ -1,6 +1,6 @@
 package request
 
-import model "github.com/flipped-aurora/gin-vue-admin/server/model/system"
+import model "github.com/liujianjiang/goadmin/server/model/system"
 
 // User register structure
 type Register struct {

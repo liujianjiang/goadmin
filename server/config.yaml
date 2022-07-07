@@ -1,4 +1,4 @@
-# github.com/flipped-aurora/gin-vue-admin/server Global Configuration
+# github.com/liujianjiang/goadmin/server Global Configuration
 
 # jwt configuration
 jwt:
@@ -10,7 +10,7 @@ jwt:
 # zap logger configuration
 zap:
   level: 'info'
-  prefix: '[github.com/flipped-aurora/gin-vue-admin/server]'
+  prefix: '[github.com/liujianjiang/goadmin/server]'
   format: 'console'
   director: 'log'
   encode-level: 'LowercaseColorLevelEncoder'
@@ -27,13 +27,13 @@ redis:
 
 # email configuration
 email:
-  to: 'xxx@qq.com'
+  to: 875394153@qq.com
   port: 465
-  from: 'xxx@163.com'
-  host: 'smtp.163.com'
+  from: 875394153@qq.com
+  host: smtp.qq.com
   is-ssl: true
-  secret: 'xxx'
-  nickname: 'test'
+  secret: genmaouvhhbxbegf
+  nickname: 刘建江
 
 # system configuration
 system:
@@ -148,7 +148,7 @@ tencent-cos:
   secret-id: 'xxxxxxxx'
   secret-key: 'xxxxxxxx'
   base-url: 'https://gin.vue.admin'
-  path-prefix: 'github.com/flipped-aurora/gin-vue-admin/server'
+  path-prefix: 'github.com/liujianjiang/goadmin/server'
 
 # aws s3 configuration (minio compatible)
 aws-s3:
@@ -160,7 +160,7 @@ aws-s3:
   secret-id: xxxxxxxx
   secret-key: xxxxxxxx
   base-url: https://gin.vue.admin
-  path-prefix: github.com/flipped-aurora/gin-vue-admin/server
+  path-prefix: github.com/liujianjiang/goadmin/server
 
 # huawei obs configuration
 hua-wei-obs:

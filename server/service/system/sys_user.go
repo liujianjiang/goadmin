@@ -1,12 +1,16 @@
 package system
 
 import (
+	"context"
 	"errors"
 	"fmt"
-	"github.com/flipped-aurora/gin-vue-admin/server/global"
-	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
-	"github.com/flipped-aurora/gin-vue-admin/server/model/system"
-	"github.com/flipped-aurora/gin-vue-admin/server/utils"
+	"log"
+
+	"github.com/chromedp/chromedp"
+	"github.com/liujianjiang/goadmin/server/global"
+	"github.com/liujianjiang/goadmin/server/model/common/request"
+	"github.com/liujianjiang/goadmin/server/model/system"
+	"github.com/liujianjiang/goadmin/server/utils"
 	uuid "github.com/satori/go.uuid"
 	"gorm.io/gorm"
 )
@@ -251,4 +255,40 @@ func (userService *UserService) FindUserByUuid(uuid string) (user *system.SysUse
 func (userService *UserService) ResetPassword(ID uint) (err error) {
 	err = global.GVA_DB.Model(&system.SysUser{}).Where("id = ?", ID).Update("password", utils.BcryptHash("123456")).Error
 	return err
+}
+
+//@author: [liujianjiang]
+//@function: GetTTJiJinStockInfo
+//@description: 获取天天基金数据
+//@param: code int
+//@return: stock Stock, err error
+func (userService *UserService) GetTTJiJinStockInfo(ctx context.Context, code int) (stock system.Stock, err error) {
+	stockinfo := system.Stock{
+		Code: code,
+	}
+
+	url := fmt.Sprintf("http://fund.eastmoney.com/%d.html?spm=search", code)
+	// err = chromedp.Run(ctx,
+	// 	// chromedp.ActionFunc(func(context.Context) error {
+	// 	//  log.Printf("url: %s", url)
+	// 	//  return nil
+	// 	// }),
+	// 	chromedp.Navigate(url),
+	// 	chromedp.Click(`.ip_tips_btn > span`),
+	// 	chromedp.Sleep(1*time.Second),
+	// 	chromedp.TextContent(`#gz_gszzl`, &stockinfo.Estimate, chromedp.ByQuery),
+	// 	chromedp.TextContent(`.fundDetail-tit`, &stockinfo.Name, chromedp.ByQuery),
+	// )
+	if err := chromedp.Run(ctx,
+		chromedp.Navigate(url),
+		chromedp.TextContent(`#gz_gszzl`, &stockinfo.Estimate, chromedp.ByQuery),
+		chromedp.TextContent(`.fundDetail-tit`, &stockinfo.Name, chromedp.ByQuery),
+	); err != nil {
+		log.Fatalf("Failed getting body of duckduckgo.com: %v", err)
+	}
+
+	if err != nil {
+		log.Printf("url: %s ,error: %s", url, err.Error())
+	}
+	return stockinfo, nil
 }

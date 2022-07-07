@@ -1,8 +1,8 @@
 package system
 
 import (
-	"github.com/flipped-aurora/gin-vue-admin/server/global"
-	"github.com/satori/go.uuid"
+	"github.com/liujianjiang/goadmin/server/global"
+	uuid "github.com/satori/go.uuid"
 )
 
 type SysUser struct {
