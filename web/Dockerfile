@@ -3,7 +3,7 @@ FROM node:16
 WORKDIR /gva_web/
 COPY . .
 
-RUN yarn && yarn limit-build
+RUN yarn && yarn build
 
 FROM nginx:alpine
 LABEL MAINTAINER="SliverHorn@sliver_horn@qq.com"
