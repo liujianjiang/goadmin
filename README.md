@@ -13,7 +13,7 @@ git pull
 
 ### 后端发布
 docker-compose up
-docker-compose up --build admin-server chromedp-headless-shell
+docker-compose up --build -d goadmin-server chromedp-headless-shell 
 
 ### mysql无法连接
 ```
