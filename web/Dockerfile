@@ -1,11 +1,11 @@
-FROM node:16
+FROM node:latest
 
 WORKDIR /gva_web/
 COPY . .
 
 
 RUN npm install -g increase-memory-limit
-RUN increase-memory-limit && yarn && yarn build
+RUN yarn && yarn build
 
 FROM nginx:alpine
 LABEL MAINTAINER="SliverHorn@sliver_horn@qq.com"
