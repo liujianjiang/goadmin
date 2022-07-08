@@ -4,7 +4,7 @@ WORKDIR /gva_web/
 COPY . .
 
 
-RUN npm install -g increase-memory-limit && increase-memory-limit
+RUN yarn add increase-memory-limit && increase-memory-limit 1024mb
 RUN yarn && yarn build
 
 FROM nginx:alpine
