@@ -1,0 +1,4 @@
+/*! 
+ Build based on gin-vue-admin 
+ Time : 1657263281000 */
+System.register(["./gin-vue-admin-bottomInfo.vue_vue_type_style_index_0_lang-legacy.1657263281000.js","../gva/gin-vue-admin-index-legacy.1657263281000.js"],(function(e){"use strict";var n,t,i,a,r,u,o;return{setters:[function(){},function(e){n=e._,t=e.b,i=e.o,a=e.c,r=e.d,u=e.t,o=e.e}],execute:function(){var l={name:"BottomInfo"},s={class:"bottom-info"},d=r("span",null,"Powered by",-1),c={href:"https://github.com/liujianjiang/goadmin"},p=r("span",null,"Copyright",-1),f=r("span",null,[r("a",{href:"https://github.com/flipped-aurora"},"flipped-aurora团队")],-1);e("default",n(l,[["render",function(e,n,l,g,v,m){var _=t("el-divider");return i(),a("div",s,[r("div",null,[d,r("span",null,[r("a",c,u(e.$GIN_VUE_ADMIN.appName),1)]),o(_,{direction:"vertical"}),p,f])])}]]))}}}));
