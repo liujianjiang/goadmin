@@ -3,8 +3,6 @@ FROM node:16
 WORKDIR /gva_web/
 COPY . .
 
-
-RUN export NODE_OPTIONS=--max_old_space_size=1024
 RUN yarn && yarn build
 
 FROM nginx:alpine
