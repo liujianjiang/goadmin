@@ -9,7 +9,6 @@ import (
 	"time"
 
 	"github.com/chromedp/chromedp"
-	uti "github.com/liujianjiang/goadmin/server/plugin/email/utils"
 
 	"github.com/liujianjiang/goadmin/server/global"
 	"github.com/liujianjiang/goadmin/server/model/common/request"
@@ -17,6 +16,7 @@ import (
 	"github.com/liujianjiang/goadmin/server/model/system"
 	systemReq "github.com/liujianjiang/goadmin/server/model/system/request"
 	systemRes "github.com/liujianjiang/goadmin/server/model/system/response"
+	email "github.com/liujianjiang/goadmin/server/plugin/email/utils"
 	"github.com/liujianjiang/goadmin/server/utils"
 
 	"github.com/gin-gonic/gin"
@@ -398,7 +398,9 @@ func (b *BaseApi) SendEmail(c *gin.Context) {
 	codes := strings.Split(codestr, ",")
 	content := ""
 	// create allocator context for use with creating a browser context later
-	allocatorContext, cancel := chromedp.NewRemoteAllocator(context.Background(), "ws://chromedp-headless-shell:9222")
+	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
+	defer cancel()
+	allocatorContext, cancel := chromedp.NewRemoteAllocator(ctx, "ws://"+global.GVA_CONFIG.Chromedp.Host+":9222")
 	defer cancel()
 
 	// create context
@@ -411,14 +413,14 @@ func (b *BaseApi) SendEmail(c *gin.Context) {
 		if err != nil {
 			log.Fatal(err)
 		}
-		log.Printf("stockinfo: %v", stockinfo)
-		content += fmt.Sprintf("名称: %s 代码: %d 涨幅: %s <br>", stockinfo.Name, stockinfo.Code, stockinfo.Estimate)
+		log.Printf("stockinfo: %+v", stockinfo)
+		content += fmt.Sprintf("基金名称: %s 代码: %d 涨幅: %s <br>", stockinfo.Name, stockinfo.Code, stockinfo.Estimate)
 	}
 
 	emailtitle := fmt.Sprintf("天天基金-%s", time.Now().Format("2006/1/02 15:04"))
-
+	log.Println(emailtitle)
 	//发送邮件
-	if err := uti.Email("875394153@qq.com", emailtitle, content); err != nil {
+	if err := email.Email("875394153@qq.com,794895415@qq.com", emailtitle, content); err != nil {
 		global.GVA_LOG.Error("发送失败!", zap.Error(err))
 		response.FailWithMessage("发送失败", c)
 		return

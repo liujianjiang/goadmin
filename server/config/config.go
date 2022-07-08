@@ -26,4 +26,6 @@ type Server struct {
 
 	// 跨域配置
 	Cors CORS `mapstructure:"cors" json:"cors" yaml:"cors"`
+
+	Chromedp Chromedp `mapstructure:"chromedp" json:"chromedp" yaml:"chromedp"`
 }

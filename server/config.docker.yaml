@@ -201,3 +201,7 @@ cors:
       allow-methods: GET, POST
       expose-headers: Content-Length, Access-Control-Allow-Origin, Access-Control-Allow-Headers, Content-Type
       allow-credentials: true # 布尔值
+
+# chromedp 配置
+chromedp:
+  host: chromedp-headless-shell

@@ -263,32 +263,17 @@ func (userService *UserService) ResetPassword(ID uint) (err error) {
 //@param: code int
 //@return: stock Stock, err error
 func (userService *UserService) GetTTJiJinStockInfo(ctx context.Context, code int) (stock system.Stock, err error) {
-	stockinfo := system.Stock{
-		Code: code,
-	}
-
+	stockinfo := system.Stock{}
 	url := fmt.Sprintf("http://fund.eastmoney.com/%d.html?spm=search", code)
-	// err = chromedp.Run(ctx,
-	// 	// chromedp.ActionFunc(func(context.Context) error {
-	// 	//  log.Printf("url: %s", url)
-	// 	//  return nil
-	// 	// }),
-	// 	chromedp.Navigate(url),
-	// 	chromedp.Click(`.ip_tips_btn > span`),
-	// 	chromedp.Sleep(1*time.Second),
-	// 	chromedp.TextContent(`#gz_gszzl`, &stockinfo.Estimate, chromedp.ByQuery),
-	// 	chromedp.TextContent(`.fundDetail-tit`, &stockinfo.Name, chromedp.ByQuery),
-	// )
 	if err := chromedp.Run(ctx,
 		chromedp.Navigate(url),
+		chromedp.WaitVisible(`#gz_gszzl`),
 		chromedp.TextContent(`#gz_gszzl`, &stockinfo.Estimate, chromedp.ByQuery),
 		chromedp.TextContent(`.fundDetail-tit`, &stockinfo.Name, chromedp.ByQuery),
 	); err != nil {
-		log.Fatalf("Failed getting body of duckduckgo.com: %v", err)
+		log.Printf("url: %s ,error: %s", url, err)
 	}
 
-	if err != nil {
-		log.Printf("url: %s ,error: %s", url, err.Error())
-	}
+	stockinfo.Code = code
 	return stockinfo, nil
 }
