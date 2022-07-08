@@ -1,20 +1,5 @@
 version: "3"    
 services:
-  goadmin-web:
-    build:
-      context: ./web
-      dockerfile: ./Dockerfile
-    container_name: goadmin-web
-    restart: always
-    ports:
-      - '8080:8080'
-    depends_on:
-      -  goadmin-server
-    command: [ 'nginx-debug', '-g', 'daemon off;' ]
-    networks:
-      network:
-        ipv4_address: 177.7.0.11
-
   goadmin-server:
     build:
       context: ./server
