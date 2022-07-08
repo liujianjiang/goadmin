@@ -4,7 +4,7 @@ WORKDIR /gva_web/
 COPY . .
 
 
-RUN node --max-old-space-size=1024
+RUN npm run start --max_old_space_size=1024
 RUN yarn && yarn build
 
 FROM nginx:alpine
