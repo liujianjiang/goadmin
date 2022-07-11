@@ -1,11 +1,13 @@
 version: "3"    
 services:
-  goadmin-server:
+  server:
     build:
       context: ./server
       dockerfile: ./Dockerfile
-    container_name: goadmin-server
+    container_name: server
     restart: always
+    volumes:
+      - ./server/config.docker.yaml:/data/app/goadmin/config.docker.yaml
     ports:
       - '8989:8989'
     depends_on:
