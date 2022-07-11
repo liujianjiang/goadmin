@@ -5,7 +5,9 @@ import (
 	"errors"
 	"fmt"
 	"log"
+	"time"
 
+	"github.com/chromedp/cdproto/runtime"
 	"github.com/chromedp/chromedp"
 	"github.com/liujianjiang/goadmin/server/global"
 	"github.com/liujianjiang/goadmin/server/model/common/request"
@@ -20,6 +22,14 @@ import (
 //@description: 用户注册
 //@param: u model.SysUser
 //@return: userInter system.SysUser, err error
+const (
+	makeVisibleScript = `
+		var on = document.querySelector(".ip_tips_btn > span");
+		if (on) {
+			on.click();
+		}
+	`
+)
 
 type UserService struct{}
 
@@ -265,14 +275,29 @@ func (userService *UserService) ResetPassword(ID uint) (err error) {
 func (userService *UserService) GetTTJiJinStockInfo(ctx context.Context, code int) (stock system.Stock, err error) {
 	stockinfo := system.Stock{}
 	url := fmt.Sprintf("http://fund.eastmoney.com/%d.html?spm=search", code)
+	log.Printf("get url: %s", url)
+	var html string
 	if err := chromedp.Run(ctx,
 		chromedp.Navigate(url),
-		chromedp.WaitVisible(`#gz_gszzl`),
+		chromedp.Sleep(1*time.Second),
+		//点击页面立即开启按钮
+		chromedp.ActionFunc(func(ctx context.Context) error {
+			_, exp, err := runtime.Evaluate(makeVisibleScript).Do(ctx)
+			if err != nil {
+				return err
+			}
+			if exp != nil {
+				return exp
+			}
+			return nil
+		}),
+		chromedp.Sleep(1*time.Second),
 		chromedp.TextContent(`#gz_gszzl`, &stockinfo.Estimate, chromedp.ByQuery),
 		chromedp.TextContent(`.fundDetail-tit`, &stockinfo.Name, chromedp.ByQuery),
 	); err != nil {
 		log.Printf("url: %s ,error: %s", url, err)
 	}
+	log.Println(html)
 
 	stockinfo.Code = code
 	return stockinfo, nil

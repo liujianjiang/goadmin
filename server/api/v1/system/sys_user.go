@@ -393,20 +393,19 @@ func (b *BaseApi) ResetPassword(c *gin.Context) {
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"登陆成功"}"
 // @Router /base/login [post]
 func (b *BaseApi) SendEmail(c *gin.Context) {
-
 	codestr := c.Query("codes")
 	codes := strings.Split(codestr, ",")
-	content := ""
+
 	// create allocator context for use with creating a browser context later
-	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
-	allocatorContext, cancel := chromedp.NewRemoteAllocator(ctx, "ws://"+global.GVA_CONFIG.Chromedp.Host+":9222")
-	defer cancel()
+	allocatorContext, cancel2 := chromedp.NewRemoteAllocator(ctx, "ws://"+global.GVA_CONFIG.Chromedp.Host+":9222")
+	defer cancel2()
 
 	// create context
 	ctxt, cancel := chromedp.NewContext(allocatorContext)
 	defer cancel()
-
+	content := ""
 	for _, code := range codes {
 		code, _ := strconv.Atoi(code)
 		stockinfo, err := userService.GetTTJiJinStockInfo(ctxt, (int(code)))
@@ -417,14 +416,12 @@ func (b *BaseApi) SendEmail(c *gin.Context) {
 		content += fmt.Sprintf("基金名称: %s 代码: %d 涨幅: %s <br>", stockinfo.Name, stockinfo.Code, stockinfo.Estimate)
 	}
 
-	emailtitle := fmt.Sprintf("天天基金-%s", time.Now().Format("2006/1/02 15:04"))
-	log.Println(emailtitle)
 	//发送邮件
-	if err := email.Email("875394153@qq.com,794895415@qq.com", emailtitle, content); err != nil {
+	if err := email.Email("875394153@qq.com,794895415@qq.com",
+		fmt.Sprintf("天天基金-%s", time.Now().Format("2006/1/02 15:04")), content); err != nil {
 		global.GVA_LOG.Error("发送失败!", zap.Error(err))
 		response.FailWithMessage("发送失败", c)
 		return
 	}
-
 	response.Ok(c)
 }
