@@ -8,6 +8,7 @@ services:
     restart: always
     volumes:
       - ./server/config.docker.yaml:/data/app/goadmin/config.docker.yaml
+      - ./server/log:/data/app/goadmin/log
     ports:
       - '8989:8989'
     depends_on:
