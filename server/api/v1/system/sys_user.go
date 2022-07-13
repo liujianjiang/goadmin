@@ -6,6 +6,7 @@ import (
 	"log"
 	"strconv"
 	"strings"
+	"sync"
 	"time"
 
 	"github.com/chromedp/chromedp"
@@ -16,8 +17,10 @@ import (
 	"github.com/liujianjiang/goadmin/server/model/system"
 	systemReq "github.com/liujianjiang/goadmin/server/model/system/request"
 	systemRes "github.com/liujianjiang/goadmin/server/model/system/response"
+
 	email "github.com/liujianjiang/goadmin/server/plugin/email/utils"
 	"github.com/liujianjiang/goadmin/server/utils"
+	antsPool "github.com/liujianjiang/goadmin/server/utils/antspool"
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-redis/redis/v8"
@@ -25,6 +28,10 @@ import (
 )
 
 var chromeCtx context.Context
+
+var wg sync.WaitGroup
+
+var lock sync.Mutex
 
 // @Tags Base
 // @Summary 用户登录
@@ -395,29 +402,38 @@ func (b *BaseApi) ResetPassword(c *gin.Context) {
 func (b *BaseApi) SendEmail(c *gin.Context) {
 	codestr := c.Query("codes")
 	codes := strings.Split(codestr, ",")
-
-	// create allocator context for use with creating a browser context later
-	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
-	defer cancel()
-	allocatorContext, cancel2 := chromedp.NewRemoteAllocator(ctx, "ws://"+global.GVA_CONFIG.Chromedp.Host+":9222")
-	defer cancel2()
-
-	// create context
-	ctxt, cancel := chromedp.NewContext(allocatorContext)
-	defer cancel()
 	content := ""
+	rspData := make(map[string]system.Stock)
+	errMsg := make(map[string]interface{})
 	for _, code := range codes {
-		code, _ := strconv.Atoi(code)
-		stockinfo, err := userService.GetTTJiJinStockInfo(ctxt, (int(code)))
+		wg.Add(1)
+		newCode := code
+		err := antsPool.SubmitTask(context.Background(), func() {
+			ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+			defer cancel()
+			allocatorContext, cancel2 := chromedp.NewRemoteAllocator(ctx, "ws://"+global.GVA_CONFIG.Chromedp.Host+":9222")
+			defer cancel2()
+			ctxpb, cancel3 := chromedp.NewContext(allocatorContext)
+			defer cancel3()
+			stockInfo, err := userService.GetTTJiJinStockInfo(ctxpb, newCode)
+			if err != nil {
+				errMsg[newCode] = fmt.Sprintf("获取基金 %s，异常信息：%v \n", newCode, err.Error())
+			}
+			lock.Lock() // 加锁
+			rspData[stockInfo.Code] = stockInfo
+			content += fmt.Sprintf("基金名称: %s 代码: %s 涨幅: %s <br>", stockInfo.Name, stockInfo.Code, stockInfo.Estimate)
+			lock.Unlock() // 解锁
+			wg.Done()
+		})
 		if err != nil {
 			log.Fatal(err)
 		}
-		log.Printf("stockinfo: %+v", stockinfo)
-		content += fmt.Sprintf("基金名称: %s 代码: %d 涨幅: %s <br>", stockinfo.Name, stockinfo.Code, stockinfo.Estimate)
 	}
+	wg.Wait()
+	log.Printf("rspData: %+v", rspData)
+	log.Printf("errMsg: %+v", errMsg)
 
-	//发送邮件
-	if err := email.Email("875394153@qq.com,794895415@qq.com",
+	if err := email.Email(global.GVA_CONFIG.Chromedp.Ttjjemail,
 		fmt.Sprintf("天天基金-%s", time.Now().Format("2006/1/02 15:04")), content); err != nil {
 		global.GVA_LOG.Error("发送失败!", zap.Error(err))
 		response.FailWithMessage("发送失败", c)

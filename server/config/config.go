@@ -28,4 +28,6 @@ type Server struct {
 	Cors CORS `mapstructure:"cors" json:"cors" yaml:"cors"`
 
 	Chromedp Chromedp `mapstructure:"chromedp" json:"chromedp" yaml:"chromedp"`
+
+	AntsPool AntsPool `mapstructure:"ants_Pool" json:"ants_Pool" yaml:"ants_Pool"`
 }

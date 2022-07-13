@@ -1,9 +1,12 @@
 package main
 
 import (
+	"log"
+
 	"github.com/liujianjiang/goadmin/server/core"
 	"github.com/liujianjiang/goadmin/server/global"
 	"github.com/liujianjiang/goadmin/server/initialize"
+	"github.com/liujianjiang/goadmin/server/utils/antspool"
 	"go.uber.org/zap"
 )
 
@@ -31,6 +34,10 @@ func main() {
 		// 程序结束前关闭数据库链接
 		db, _ := global.GVA_DB.DB()
 		defer db.Close()
+	}
+	//初始化协程池
+	if err := antspool.InitPools(); err != nil {
+		log.Printf("common.InitPools err: %v", err)
 	}
 	core.RunWindowsServer()
 }

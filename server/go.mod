@@ -9,7 +9,7 @@ require (
 	github.com/baiyubin/aliyun-sts-go-sdk v0.0.0-20180326062324-cfa1a18b161f // indirect
 	github.com/casbin/casbin/v2 v2.11.0
 	github.com/casbin/gorm-adapter/v3 v3.0.2
-	github.com/chromedp/cdproto v0.0.0-20220515234810-83d799542a04 // indirect
+	github.com/chromedp/cdproto v0.0.0-20220515234810-83d799542a04
 	github.com/chromedp/chromedp v0.8.2
 	github.com/flipped-aurora/ws v1.0.2
 	github.com/fsnotify/fsnotify v1.4.9
@@ -24,12 +24,15 @@ require (
 	github.com/gookit/color v1.3.1
 	github.com/huaweicloud/huaweicloud-sdk-go-obs v3.21.8+incompatible
 	github.com/jackc/pgx/v4 v4.15.0 // indirect
+	github.com/jonboulle/clockwork v0.2.2 // indirect
 	github.com/jordan-wright/email v0.0.0-20200824153738-3f5bafa1cd84
-	github.com/json-iterator/go v1.1.10 // indirect
+	github.com/json-iterator/go v1.1.12 // indirect
+	github.com/klauspost/compress v1.12.2 // indirect
 	github.com/lestrrat-go/file-rotatelogs v2.4.0+incompatible
 	github.com/lestrrat-go/strftime v1.0.6 // indirect
-	github.com/mitchellh/mapstructure v1.2.2 // indirect
+	github.com/mitchellh/mapstructure v1.3.3 // indirect
 	github.com/mojocn/base64Captcha v1.3.1
+	github.com/panjf2000/ants/v2 v2.5.0
 	github.com/pelletier/go-toml v1.6.0 // indirect
 	github.com/pkg/errors v0.9.1
 	github.com/qiniu/api.v7/v7 v7.4.1
@@ -50,6 +53,7 @@ require (
 	github.com/xuri/excelize/v2 v2.4.1
 	go.uber.org/zap v1.16.0
 	golang.org/x/crypto v0.0.0-20220213190939-1e6e3497d506
+	golang.org/x/lint v0.0.0-20191125180803-fdd1cda4f05f // indirect
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
 	golang.org/x/text v0.3.7
 	golang.org/x/tools v0.1.5 // indirect

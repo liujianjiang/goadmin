@@ -1,7 +1,7 @@
 package system
 
 type Stock struct {
-	Code     int    `json:"code"`
+	Code     string `json:"code"`
 	Estimate string `json:"estimate"`
 	Name     string `json:"name"`
 }

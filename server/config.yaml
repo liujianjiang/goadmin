@@ -205,3 +205,8 @@ cors:
 # chromedp 配置
 chromedp:
   host: 127.0.0.1
+  ttjjemail: 875394153@qq.com
+
+ants_Pool:
+  size: 1
+  max_blocking_task: 0

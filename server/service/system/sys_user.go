@@ -272,11 +272,10 @@ func (userService *UserService) ResetPassword(ID uint) (err error) {
 //@description: 获取天天基金数据
 //@param: code int
 //@return: stock Stock, err error
-func (userService *UserService) GetTTJiJinStockInfo(ctx context.Context, code int) (stock system.Stock, err error) {
+func (userService *UserService) GetTTJiJinStockInfo(ctx context.Context, code string) (stock system.Stock, err error) {
 	stockinfo := system.Stock{}
-	url := fmt.Sprintf("http://fund.eastmoney.com/%d.html?spm=search", code)
-	log.Printf("get url: %s", url)
-	var html string
+	url := fmt.Sprintf("http://fund.eastmoney.com/%s.html?spm=search", code)
+	log.Printf("开始抓取页面: %s", url)
 	if err := chromedp.Run(ctx,
 		chromedp.Navigate(url),
 		chromedp.Sleep(1*time.Second),
@@ -295,9 +294,8 @@ func (userService *UserService) GetTTJiJinStockInfo(ctx context.Context, code in
 		chromedp.TextContent(`#gz_gszzl`, &stockinfo.Estimate, chromedp.ByQuery),
 		chromedp.TextContent(`.fundDetail-tit`, &stockinfo.Name, chromedp.ByQuery),
 	); err != nil {
-		log.Printf("url: %s ,error: %s", url, err)
+		log.Printf("页面抓取失败url: %s ,error: %s", url, err)
 	}
-	log.Println(html)
 
 	stockinfo.Code = code
 	return stockinfo, nil

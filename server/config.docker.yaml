@@ -203,3 +203,8 @@ cors:
 # chromedp 配置
 chromedp:
   host: chromedp-headless-shell
+  ttjjemail: 875394153@qq.com,794895415@qq.com
+
+ants_Pool:
+  size: 100
+  max_blocking_task: 0
